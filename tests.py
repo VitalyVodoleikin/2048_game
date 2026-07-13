@@ -1,5 +1,6 @@
 import unittest
-from main import get_number_from_index, get_empty_list, get_index_from_number
+from logics import get_number_from_index, get_empty_list, get_index_from_number, \
+    is_zero_in_mas
 
 
 class Test_2048(unittest.TestCase):
@@ -72,6 +73,42 @@ class Test_2048(unittest.TestCase):
         Тест получения координат клетки по порядковому номеру клетки массива.
         """
         self.assertEqual(get_index_from_number(1), (0, 0))
+
+    def test_9_is_zero_in_mas(self):
+        """
+        Тест на наличие в массиве пустых клеток.
+        """
+        mas = [
+            [2, 2, 2, 2],
+            [2, 4, 2, 4],
+            [4, 2, 4, 2],
+            [4, 4, 4, 4]
+        ]
+        self.assertEqual(is_zero_in_mas(mas), False)
+
+    def test_10_is_zero_in_mas(self):
+        """
+        Тест на наличие в массиве пустых клеток.
+        """
+        mas = [
+            [2, 2, 2, 2],
+            [2, 0, 2, 4],
+            [4, 2, 4, 2],
+            [4, 4, 4, 4]
+        ]
+        self.assertEqual(is_zero_in_mas(mas), True)
+
+    def test_11_is_zero_in_mas(self):
+        """
+        Тест на наличие в массиве пустых клеток.
+        """
+        mas = [
+            [0, 2, 2, 2],
+            [2, 4, 0, 4],
+            [4, 0, 4, 2],
+            [4, 4, 0, 4]
+        ]
+        self.assertEqual(is_zero_in_mas(mas), True)
 
 
 if __name__ == "main":
