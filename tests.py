@@ -1,6 +1,6 @@
 import unittest
 from logics import get_number_from_index, get_empty_list, get_index_from_number, \
-    is_zero_in_mas
+    is_zero_in_mas, move_left, move_right
 
 
 class Test_2048(unittest.TestCase):
@@ -109,6 +109,78 @@ class Test_2048(unittest.TestCase):
             [4, 4, 0, 4]
         ]
         self.assertEqual(is_zero_in_mas(mas), True)
+
+    def test_12_move_left(self):
+        """
+        Тест на движение клеток влево.
+        """
+        mas = [
+            [2, 2, 0, 0],
+            [0, 4, 4, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+        rezult = [
+            [4, 0, 0, 0],
+            [8, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+        self.assertEqual(move_left(mas), rezult)
+
+    def test_13_move_left(self):
+        """
+        Тест на движение клеток влево.
+        """
+        mas = [
+            [2, 4, 4, 2],
+            [4, 0, 0, 2],
+            [0, 0, 0, 0],
+            [8, 8, 4, 4]
+        ]
+        rezult = [
+            [2, 8, 2, 0],
+            [4, 2, 0, 0],
+            [0, 0, 0, 0],
+            [16, 8, 0, 0]
+        ]
+        self.assertEqual(move_left(mas), rezult)
+
+    def test_14_move_right(self):
+        """
+        Тест на движение клеток влево.
+        """
+        mas = [
+            [2, 2, 0, 0],
+            [0, 4, 4, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+        rezult = [
+            [0, 0, 0, 4],
+            [0, 0, 0, 8],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+        self.assertEqual(move_right(mas), rezult)
+
+    def test_15_move_right(self):
+        """
+        Тест на движение клеток влево.
+        """
+        mas = [
+            [2, 4, 4, 2],
+            [4, 0, 0, 2],
+            [0, 0, 0, 0],
+            [8, 8, 4, 4]
+        ]
+        rezult = [
+            [0, 2, 8, 2],
+            [0, 0, 4, 2],
+            [0, 0, 0, 0],
+            [0, 0, 16, 8]
+        ]
+        self.assertEqual(move_right(mas), rezult)
 
 
 if __name__ == "main":

@@ -107,6 +107,11 @@ while is_zero_in_mas(mas):
 
         elif event.type == pygame.KEYDOWN:  # При нажатии на кнопки
 
+            if event.key == pygame.K_LEFT:  # Отрабатываем нажатие кнопки "Влево"
+                mas = move_left(mas)
+            elif event.key == pygame.K_RIGHT:  # Отрабатываем нажатие кнопки "Вправо
+                mas = move_right(mas)
+
             # Поиск всех пустых клеток
             empty = get_empty_list(mas)
             # Перемешиваем список пустых клеток для последующей выборки случайной клетки
