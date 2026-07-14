@@ -120,13 +120,13 @@ class Test_2048(unittest.TestCase):
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ]
-        rezult = [
+        result = [
             [4, 0, 0, 0],
             [8, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ]
-        self.assertEqual(move_left(mas), (rezult, 12))
+        self.assertEqual(move_left(mas), (result, 12))
 
     def test_13_move_left(self):
         """
@@ -138,13 +138,13 @@ class Test_2048(unittest.TestCase):
             [0, 0, 0, 0],
             [8, 8, 4, 4]
         ]
-        rezult = [
+        result = [
             [2, 8, 2, 0],
             [4, 2, 0, 0],
             [0, 0, 0, 0],
             [16, 8, 0, 0]
         ]
-        self.assertEqual(move_left(mas), (rezult, 32))
+        self.assertEqual(move_left(mas), (result, 32))
 
     def test_14_move_right(self):
         """
@@ -156,13 +156,13 @@ class Test_2048(unittest.TestCase):
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ]
-        rezult = [
+        result = [
             [0, 0, 0, 4],
             [0, 0, 0, 8],
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ]
-        self.assertEqual(move_right(mas), (rezult, 12))
+        self.assertEqual(move_right(mas), (result, 12))
 
     def test_15_move_right(self):
         """
@@ -174,13 +174,13 @@ class Test_2048(unittest.TestCase):
             [0, 0, 0, 0],
             [8, 8, 4, 4]
         ]
-        rezult = [
+        result = [
             [0, 2, 8, 2],
             [0, 0, 4, 2],
             [0, 0, 0, 0],
             [0, 0, 16, 8]
         ]
-        self.assertEqual(move_right(mas), (rezult, 32))
+        self.assertEqual(move_right(mas), (result, 32))
 
     def test_16_move_up(self):
         """
@@ -192,13 +192,13 @@ class Test_2048(unittest.TestCase):
             [4, 0, 2, 4],
             [4, 4, 0, 0]
         ]
-        rezult = [
+        result = [
             [4, 8, 4, 2],
             [8, 0, 0, 4],
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ]
-        self.assertEqual(move_up(mas), (rezult, 24))
+        self.assertEqual(move_up(mas), (result, 24))
 
     def test_17_move_down(self):
         """
@@ -210,13 +210,13 @@ class Test_2048(unittest.TestCase):
             [4, 0, 2, 4],
             [4, 4, 0, 0]
         ]
-        rezult = [
+        result = [
             [0, 0, 0, 0],
             [0, 0, 0, 0],
             [4, 0, 0, 2],
             [8, 8, 4, 4]
         ]
-        self.assertEqual(move_down(mas), (rezult, 24))
+        self.assertEqual(move_down(mas), (result, 24))
 
     def test_18_can_move(self):
         """
