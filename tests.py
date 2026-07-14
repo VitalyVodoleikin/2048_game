@@ -126,7 +126,7 @@ class Test_2048(unittest.TestCase):
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ]
-        self.assertEqual(move_left(mas), rezult)
+        self.assertEqual(move_left(mas), (rezult, 12))
 
     def test_13_move_left(self):
         """
@@ -144,7 +144,7 @@ class Test_2048(unittest.TestCase):
             [0, 0, 0, 0],
             [16, 8, 0, 0]
         ]
-        self.assertEqual(move_left(mas), rezult)
+        self.assertEqual(move_left(mas), (rezult, 32))
 
     def test_14_move_right(self):
         """
@@ -162,7 +162,7 @@ class Test_2048(unittest.TestCase):
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ]
-        self.assertEqual(move_right(mas), rezult)
+        self.assertEqual(move_right(mas), (rezult, 12))
 
     def test_15_move_right(self):
         """
@@ -180,7 +180,7 @@ class Test_2048(unittest.TestCase):
             [0, 0, 0, 0],
             [0, 0, 16, 8]
         ]
-        self.assertEqual(move_right(mas), rezult)
+        self.assertEqual(move_right(mas), (rezult, 32))
 
     def test_16_move_up(self):
         """
@@ -198,7 +198,7 @@ class Test_2048(unittest.TestCase):
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ]
-        self.assertEqual(move_up(mas), rezult)
+        self.assertEqual(move_up(mas), (rezult, 24))
 
     def test_17_move_down(self):
         """
@@ -216,7 +216,7 @@ class Test_2048(unittest.TestCase):
             [4, 0, 0, 2],
             [8, 8, 4, 4]
         ]
-        self.assertEqual(move_down(mas), rezult)
+        self.assertEqual(move_down(mas), (rezult, 24))
 
     def test_18_can_move(self):
         """
