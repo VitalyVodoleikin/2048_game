@@ -1,6 +1,6 @@
 import unittest
 from logics import get_number_from_index, get_empty_list, get_index_from_number, \
-    is_zero_in_mas, move_left, move_right
+    is_zero_in_mas, move_left, move_right, move_up, move_down, can_move
 
 
 class Test_2048(unittest.TestCase):
@@ -181,6 +181,66 @@ class Test_2048(unittest.TestCase):
             [0, 0, 16, 8]
         ]
         self.assertEqual(move_right(mas), rezult)
+
+    def test_16_move_up(self):
+        """
+        Тест на движение клеток вверх.
+        """
+        mas = [
+            [2, 4, 0, 2],
+            [2, 0, 2, 0],
+            [4, 0, 2, 4],
+            [4, 4, 0, 0]
+        ]
+        rezult = [
+            [4, 8, 4, 2],
+            [8, 0, 0, 4],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+        self.assertEqual(move_up(mas), rezult)
+
+    def test_17_move_down(self):
+        """
+        Тест на движение клеток вниз.
+        """
+        mas = [
+            [2, 4, 0, 2],
+            [2, 0, 2, 0],
+            [4, 0, 2, 4],
+            [4, 4, 0, 0]
+        ]
+        rezult = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [4, 0, 0, 2],
+            [8, 8, 4, 4]
+        ]
+        self.assertEqual(move_down(mas), rezult)
+
+    def test_18_can_move(self):
+        """
+        Тест на возможность сделать ход.
+        """
+        mas = [
+            [2, 4, 0, 2],
+            [2, 0, 2, 0],
+            [4, 0, 2, 4],
+            [4, 4, 0, 0]
+        ]
+        self.assertEqual(can_move(mas), True)
+
+    def test_19_can_move(self):
+        """
+        Тест на возможность сделать ход.
+        """
+        mas = [
+            [2, 4, 32, 2],
+            [32, 8, 16, 8],
+            [4, 2, 8, 4],
+            [16, 32, 64, 32]
+        ]
+        self.assertEqual(can_move(mas), False)
 
 
 if __name__ == "main":

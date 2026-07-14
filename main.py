@@ -98,7 +98,7 @@ draw_interface()
 # Обновление экрана
 pygame.display.update()
 
-while is_zero_in_mas(mas):
+while is_zero_in_mas(mas) or can_move(mas):  # Если есть пустые клетки или можно сложить клетки
     # Основной цикл игры
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Закрытие окна программы
@@ -109,8 +109,12 @@ while is_zero_in_mas(mas):
 
             if event.key == pygame.K_LEFT:  # Отрабатываем нажатие кнопки "Влево"
                 mas = move_left(mas)
-            elif event.key == pygame.K_RIGHT:  # Отрабатываем нажатие кнопки "Вправо
+            elif event.key == pygame.K_RIGHT:  # Отрабатываем нажатие кнопки "Вправо"
                 mas = move_right(mas)
+            elif event.key == pygame.K_UP:  # Отрабатываем нажатие кнопки "Вверх"
+                mas = move_up(mas)
+            elif event.key == pygame.K_DOWN:  # Отрабатываем нажатие кнопки "Вниз"
+                mas = move_down(mas)
 
             # Поиск всех пустых клеток
             empty = get_empty_list(mas)
