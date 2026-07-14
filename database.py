@@ -13,17 +13,20 @@ cur.execute(
     """
 )
 
-cur.execute(
-    """
-    SELECT name, MAX(score) score
-    FROM records
-    GROUP BY name
-    ORDER BY score DESC
-    LIMIT 3;
-    """
-)
 
-result = cur.fetchall()
-print(result)
+def get_best():
+    cur.execute(
+        """
+        SELECT name gamer, MAX(score) score
+        FROM records
+        GROUP BY name
+        ORDER BY score DESC
+        LIMIT 3;
+        """
+    )
+    return cur.fetchall()
 
-cur.close()
+
+print(get_best())
+
+# cur.close()

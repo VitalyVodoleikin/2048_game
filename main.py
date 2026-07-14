@@ -2,11 +2,14 @@ import sys
 
 import pygame
 
+from database import get_best, cur
 from logics import *
 
 # ==========>>>>>>>>>>
 # Константы
 # ----------
+
+GAMERS_DB = get_best()
 
 # Размеры
 BLOCKS = 4  # Размерность поля = 4х4
@@ -42,6 +45,22 @@ COLORS = {
 score = 0
 
 
+def draw_top_gamers():
+    """
+    Функция вывода списка лучших игроков и их рекордов на информационное табло.
+    """
+    font_top = pygame.font.SysFont("simsun", 22)
+    font_gamer = pygame.font.SysFont("simsun", 18)
+    text_head = font_top.render("Best tries: ", True, COLOR_TEXT)
+    screen.blit(text_head, (280, 5))
+    for index, gamer in enumerate(GAMERS_DB):
+        name, score = gamer
+        s = f"{index + 1}. {name} - {score}"
+        text_gamer = font_gamer.render(s, True, COLOR_TEXT)
+        screen.blit(text_gamer, (280, 35 + 25 * index))
+        print(index, name, score)
+
+
 def draw_interface(score, delta=0):
     """
     Функция отрисовки интерфейса.
@@ -65,6 +84,9 @@ def draw_interface(score, delta=0):
 
     # Вывод массива в консоль
     pretty_print(mas)
+
+    # Вывод списка лучших игроков на информационном табло
+    draw_top_gamers()
 
     # Отрисовка клеток поля
     for row in range(BLOCKS):
@@ -98,6 +120,10 @@ mas[3][0] = 4
 
 print("Список пустых клеток:", get_empty_list(mas))
 pretty_print(mas)
+
+# for gamer in get_best():
+#     print(gamer)
+
 
 # Инициализация всех компонентов игры
 pygame.init()
