@@ -38,4 +38,5 @@
 
 В. Виталий
 (https://github.com/VitalyVodoleikin/)
-15 июля 2026 г.
+выполнил 15 июля 2026 г.
+по туториалу Артема Егорова (https://stepik.org/course/118434/)
