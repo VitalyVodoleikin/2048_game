@@ -10,6 +10,7 @@ from logics import *
 # ----------
 
 GAMERS_DB = get_best()
+USERNAME = None
 
 # Размеры
 BLOCKS = 4  # Размерность поля = 4х4
@@ -107,6 +108,54 @@ def draw_interface(score, delta=0):
                 screen.blit(text, (text_x, text_y))
 
 
+def draw_intro():
+    """
+    Функция отрисовки начальной заставки:
+    - логотип;
+    - текст приветствия;
+    - запрос имени пользователя.
+    """
+
+    img2048 = pygame.image.load("2048.png")
+    font = pygame.font.SysFont("stxingkai", 70)  # Задание шрифта для клетки
+    text_welcome = font.render("Welcome!", True, WHITE)
+    name = "Введите имя"
+    is_find_name = False  # Внесено ли имя игрока на экране приветствия
+    while not is_find_name:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # Закрытие окна программы
+                pygame.quit()  # Окончание игры
+                sys.exit(0)  # Закрытие окна
+            elif event.type == pygame.KEYDOWN:
+                if event.unicode.isalpha():
+                    if name == "Введите имя":
+                        name = event.unicode
+                    else:
+                        name += event.unicode
+                elif event.key == pygame.K_BACKSPACE:
+                    name = name[:-1]
+                elif event.key == pygame.K_RETURN:
+                    if len(name) > 2:
+                        global USERNAME
+                        USERNAME = name
+                        is_find_name = True
+                        break
+
+        screen.fill(BLACK)  # Перезаливка экрана
+
+        text_name = font.render(name, True, WHITE)  # Текст имени игрока
+        # Вычисление координат текста с именем игрока
+        rect_name = text_name.get_rect()
+        rect_name.center = screen.get_rect().center
+
+        # Прикрепление изображения лого и текст приветствия к экрану
+        screen.blit(pygame.transform.scale(img2048, [200, 200]), [10, 10])
+        screen.blit(text_welcome, (235, 90))
+        screen.blit(text_name, rect_name)
+        pygame.display.update()
+    screen.fill(BLACK)  # Перезаливка экрана
+
+
 # Предварительно, размерность масива будет 4х4 клетки
 mas = [
     [0, 0, 0, 0],
@@ -132,6 +181,10 @@ pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGTH))
 # Создание заголовка окна для игры: "2048"
 pygame.display.set_caption("2048")
+
+# Отрисовка начальной заставки
+draw_intro()
+
 # Отрисовка интерфейса
 draw_interface(score)
 # Обновление экрана
@@ -176,3 +229,5 @@ while is_zero_in_mas(mas) or can_move(mas):  # Если есть пустые к
             draw_interface(score, delta)
             # Обновление экрана
             pygame.display.update()
+
+    print(USERNAME)  # Отладочный принт
