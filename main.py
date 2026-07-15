@@ -242,6 +242,8 @@ def game_loop():
     # Обновление экрана
     pygame.display.update()
 
+    is_btn_click = False  # Нажата ли нужная кнопка
+
     while is_zero_in_mas(mas) or can_move(mas):  # Если есть пустые клетки или можно сложить клетки
         # Основной цикл игры
         for event in pygame.event.get():
@@ -253,16 +255,20 @@ def game_loop():
                 delta = 0  # Счет очков
                 if event.key == pygame.K_LEFT:  # Отрабатываем нажатие кнопки "Влево"
                     mas, delta = move_left(mas)
+                    is_btn_click = True
                 elif event.key == pygame.K_RIGHT:  # Отрабатываем нажатие кнопки "Вправо"
                     mas, delta = move_right(mas)
+                    is_btn_click = True
                 elif event.key == pygame.K_UP:  # Отрабатываем нажатие кнопки "Вверх"
                     mas, delta = move_up(mas)
+                    is_btn_click = True
                 elif event.key == pygame.K_DOWN:  # Отрабатываем нажатие кнопки "Вниз"
                     mas, delta = move_down(mas)
+                    is_btn_click = True
 
                 score += delta  # Увеличение счета очков
 
-                if is_zero_in_mas(mas):  # Если еще есть ходы
+                if is_zero_in_mas(mas) and is_btn_click:  # Если еще есть ходы
                     # Поиск всех пустых клеток
                     empty = get_empty_list(mas)
                     # Перемешиваем список пустых клеток для последующей выборки случайной клетки
@@ -277,6 +283,8 @@ def game_loop():
 
                     # Техниечский print
                     print(f"Мы заполнили элемент под номером {random_num}")
+
+                    is_btn_click = False  # Обнуляем условие нажание нужной кнопки
 
                 # Отрисовка интерфейса
                 draw_interface(score, delta)
