@@ -79,8 +79,8 @@ def draw_top_gamers():
     """
     Функция вывода списка лучших игроков и их рекордов на информационное табло.
     """
-    font_top = pygame.font.SysFont("simsun", 22)
-    font_gamer = pygame.font.SysFont("simsun", 18)
+    font_top = pygame.font.SysFont("comicsansms", 18)
+    font_gamer = pygame.font.SysFont("comicsansms", 14)
     text_head = font_top.render("Best tries: ", True, COLOR_TEXT)
     screen.blit(text_head, (280, 5))
     for index, gamer in enumerate(GAMERS_DB):
@@ -99,11 +99,11 @@ def draw_interface(score, delta=0):
     В последующем - разнести константы в отдельный файл, а после этого: эту функцию - в файл с логикой.
     """
     pygame.draw.rect(screen, WHITE, TITLE_REC)  # Отрисовка информационного табло
-    font = pygame.font.SysFont("stxingkai", 70)  # Задание шрифта для клетки
+    font = pygame.font.SysFont("comicsansms", 50)  # Задание шрифта для клетки
 
     # Вывод информации на табло
-    font_score = pygame.font.SysFont("simsun", 48)
-    font_delta = pygame.font.SysFont("simsun", 32)
+    font_score = pygame.font.SysFont("comicsansms", 38)
+    font_delta = pygame.font.SysFont("comicsansms", 22)
     text_score = font_score.render("Score: ", True, COLOR_TEXT)
     text_score_value = font_score.render(f"{score}", True, COLOR_TEXT)
     screen.blit(text_score, (20, 35))
@@ -146,7 +146,7 @@ def draw_intro():
     """
 
     img2048 = pygame.image.load("2048.png")
-    font = pygame.font.SysFont("stxingkai", 70)  # Задание шрифта для клетки
+    font = pygame.font.SysFont("comicsansms", 50)  # Задание шрифта для клетки
     text_welcome = font.render("Welcome!", True, WHITE)
     name = "Введите имя"
     is_find_name = False  # Внесено ли имя игрока на экране приветствия
@@ -193,7 +193,7 @@ def draw_game_over():
     global USERNAME, mas, score
 
     img2048 = pygame.image.load("2048.png")
-    font = pygame.font.SysFont("stxingkai", 50)  # Задание шрифта для клетки
+    font = pygame.font.SysFont("comicsansms", 30)  # Задание шрифта для клетки
     text_game_over = font.render("Game over!", True, WHITE)
     text_score = font.render(f"Вы набрали {score}", True, WHITE)
     best_score = GAMERS_DB[0][1]
