@@ -6,12 +6,24 @@ cur = bd.cursor()
 
 cur.execute(
     """
-    create table if not exists RECORDS (
+    CREATE TABLE IF NOT EXISTS records (
         name text,
         score integer
     );
     """
 )
+
+
+def insert_result(name, score):
+    cur.execute(
+        """
+        INSERT INTO records VALUES (
+            ?, ?
+        );
+        """,
+        (name, score)
+    )
+    bd.commit()
 
 
 def get_best():
@@ -26,7 +38,6 @@ def get_best():
     )
     return cur.fetchall()
 
-
-print(get_best())
+# print(get_best())
 
 # cur.close()
