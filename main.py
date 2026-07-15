@@ -190,7 +190,7 @@ def draw_game_over():
     Функция отрисовки экрана после окончания игры.
     """
 
-    global USERNAME, mas, score
+    global USERNAME, mas, score, GAMERS_DB
 
     img2048 = pygame.image.load("2048.png")
     font = pygame.font.SysFont("comicsansms", 30)  # Задание шрифта для клетки
@@ -205,6 +205,9 @@ def draw_game_over():
 
     # Сохранение результата игры в БД
     insert_result(USERNAME, score)
+
+    # Обновление списка рекордов
+    GAMERS_DB = get_best()
 
     make_disicion = False  # Решение о перезапуске игры
     while not make_disicion:
@@ -242,7 +245,7 @@ def game_loop():
     # Обновление экрана
     pygame.display.update()
 
-    is_btn_click = False  # Нажата ли нужная кнопка
+    was_mas_move = False  # Нажата ли нужная кнопка
 
     while is_zero_in_mas(mas) or can_move(mas):  # Если есть пустые клетки или можно сложить клетки
         # Основной цикл игры
@@ -254,21 +257,17 @@ def game_loop():
             elif event.type == pygame.KEYDOWN:  # При нажатии на кнопки
                 delta = 0  # Счет очков
                 if event.key == pygame.K_LEFT:  # Отрабатываем нажатие кнопки "Влево"
-                    mas, delta = move_left(mas)
-                    is_btn_click = True
+                    mas, delta, was_mas_move = move_left(mas)
                 elif event.key == pygame.K_RIGHT:  # Отрабатываем нажатие кнопки "Вправо"
-                    mas, delta = move_right(mas)
-                    is_btn_click = True
+                    mas, delta, was_mas_move = move_right(mas)
                 elif event.key == pygame.K_UP:  # Отрабатываем нажатие кнопки "Вверх"
-                    mas, delta = move_up(mas)
-                    is_btn_click = True
+                    mas, delta, was_mas_move = move_up(mas)
                 elif event.key == pygame.K_DOWN:  # Отрабатываем нажатие кнопки "Вниз"
-                    mas, delta = move_down(mas)
-                    is_btn_click = True
+                    mas, delta, was_mas_move = move_down(mas)
 
                 score += delta  # Увеличение счета очков
 
-                if is_zero_in_mas(mas) and is_btn_click:  # Если еще есть ходы
+                if is_zero_in_mas(mas) and was_mas_move:  # Если еще есть ходы
                     # Поиск всех пустых клеток
                     empty = get_empty_list(mas)
                     # Перемешиваем список пустых клеток для последующей выборки случайной клетки
@@ -284,7 +283,7 @@ def game_loop():
                     # Техниечский print
                     print(f"Мы заполнили элемент под номером {random_num}")
 
-                    is_btn_click = False  # Обнуляем условие нажание нужной кнопки
+                    was_mas_move = False  # Обнуляем условие нажание нужной кнопки
 
                 # Отрисовка интерфейса
                 draw_interface(score, delta)
