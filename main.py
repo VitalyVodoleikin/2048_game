@@ -156,6 +156,35 @@ def draw_intro():
     screen.fill(BLACK)  # Перезаливка экрана
 
 
+def draw_game_over():
+    """
+    Функция отрисовки экрана после окончания игры.
+    """
+    img2048 = pygame.image.load("2048.png")
+    font = pygame.font.SysFont("stxingkai", 50)  # Задание шрифта для клетки
+    text_game_over = font.render("Game over!", True, WHITE)
+    text_score = font.render(f"Вы набрали {score}", True, WHITE)
+    best_score = GAMERS_DB[0][1]
+    if score > best_score:
+        text = "Рекорд побит!"
+    else:
+        text = f"Рекорд {best_score} не побит!"
+    text_record = font.render(text, True, WHITE)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # Закрытие окна программы
+                pygame.quit()  # Окончание игры
+                sys.exit(0)  # Закрытие окна
+
+        screen.fill(BLACK)  # Перезаливка экрана
+        screen.blit(pygame.transform.scale(img2048, [200, 200]), [10, 10])
+        screen.blit(text_game_over, (235, 90))
+        screen.blit(text_score, (40, 250))
+        screen.blit(text_record, (40, 300))
+        pygame.display.update()
+
+
 # Предварительно, размерность масива будет 4х4 клетки
 mas = [
     [0, 0, 0, 0],
@@ -190,44 +219,48 @@ draw_interface(score)
 # Обновление экрана
 pygame.display.update()
 
-while is_zero_in_mas(mas) or can_move(mas):  # Если есть пустые клетки или можно сложить клетки
-    # Основной цикл игры
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:  # Закрытие окна программы
-            pygame.quit()  # Окончание игры
-            sys.exit(0)  # Закрытие окна
+# while is_zero_in_mas(mas) or can_move(mas):  # Если есть пустые клетки или можно сложить клетки
+#     # Основной цикл игры
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:  # Закрытие окна программы
+#             pygame.quit()  # Окончание игры
+#             sys.exit(0)  # Закрытие окна
+#
+#         elif event.type == pygame.KEYDOWN:  # При нажатии на кнопки
+#             delta = 0  # Счет очков
+#             if event.key == pygame.K_LEFT:  # Отрабатываем нажатие кнопки "Влево"
+#                 mas, delta = move_left(mas)
+#             elif event.key == pygame.K_RIGHT:  # Отрабатываем нажатие кнопки "Вправо"
+#                 mas, delta = move_right(mas)
+#             elif event.key == pygame.K_UP:  # Отрабатываем нажатие кнопки "Вверх"
+#                 mas, delta = move_up(mas)
+#             elif event.key == pygame.K_DOWN:  # Отрабатываем нажатие кнопки "Вниз"
+#                 mas, delta = move_down(mas)
+#
+#             score += delta  # Увеличение счета очков
+#
+#             if is_zero_in_mas(mas):  # Если еще есть ходы
+#                 # Поиск всех пустых клеток
+#                 empty = get_empty_list(mas)
+#                 # Перемешиваем список пустых клеток для последующей выборки случайной клетки
+#                 random.shuffle(empty)
+#                 # Выбираем случайную клетку
+#                 random_num = empty.pop()
+#                 # Получение координат выбранной случайной клетки
+#                 x, y = get_index_from_number(random_num)
+#                 # Присваиваем выбранной ячейке по координатам случайным образом число "2" или "4"
+#                 # Получаем обновленный массив
+#                 mas = insert_2_or_4(mas, x, y)
+#
+#                 # Техниечский print
+#                 print(f"Мы заполнили элемент под номером {random_num}")
+#
+#             # Отрисовка интерфейса
+#             draw_interface(score, delta)
+#             # Обновление экрана
+#             pygame.display.update()
+#
+#     print(USERNAME)  # Отладочный принт
 
-        elif event.type == pygame.KEYDOWN:  # При нажатии на кнопки
-            delta = 0  # Счет очков
-            if event.key == pygame.K_LEFT:  # Отрабатываем нажатие кнопки "Влево"
-                mas, delta = move_left(mas)
-            elif event.key == pygame.K_RIGHT:  # Отрабатываем нажатие кнопки "Вправо"
-                mas, delta = move_right(mas)
-            elif event.key == pygame.K_UP:  # Отрабатываем нажатие кнопки "Вверх"
-                mas, delta = move_up(mas)
-            elif event.key == pygame.K_DOWN:  # Отрабатываем нажатие кнопки "Вниз"
-                mas, delta = move_down(mas)
-
-            score += delta  # Увеличение счета очков
-
-            # Поиск всех пустых клеток
-            empty = get_empty_list(mas)
-            # Перемешиваем список пустых клеток для последующей выборки случайной клетки
-            random.shuffle(empty)
-            # Выбираем случайную клетку
-            random_num = empty.pop()
-            # Получение координат выбранной случайной клетки
-            x, y = get_index_from_number(random_num)
-            # Присваиваем выбранной ячейке по координатам случайным образом число "2" или "4"
-            # Получаем обновленный массив
-            mas = insert_2_or_4(mas, x, y)
-
-            # Техниечский print
-            print(f"Мы заполнили элемент под номером {random_num}")
-
-            # Отрисовка интерфейса
-            draw_interface(score, delta)
-            # Обновление экрана
-            pygame.display.update()
-
-    print(USERNAME)  # Отладочный принт
+# Отрисовка экрана окончания игры
+draw_game_over()
