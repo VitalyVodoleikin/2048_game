@@ -1,6 +1,8 @@
-import sys
-
 import pygame
+
+import json
+import os
+import sys
 
 from database import get_best, cur, insert_result
 from logics import *
@@ -233,6 +235,16 @@ def draw_game_over():
     screen.fill(BLACK)
 
 
+def save_game():
+    data = {
+        "user": USERNAME,
+        "score": score,
+        "mas": mas
+    }
+    with open("data.txt", "w") as outfile:
+        json.dump(data, outfile)
+
+
 def game_loop():
     """
     Функция основного цикла игры.
@@ -251,6 +263,10 @@ def game_loop():
         # Основной цикл игры
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # Закрытие окна программы
+
+                # Сохранение игры
+                save_game()
+
                 pygame.quit()  # Окончание игры
                 sys.exit(0)  # Закрытие окна
 
@@ -293,11 +309,29 @@ def game_loop():
         # print(USERNAME)  # Отладочный принт
 
 
-# Предварительно, размерность масива будет 4х4 клетки
+# Задаем настройки: массив, очки, имя игрока
 mas = None
 score = None
-init_const()
 USERNAME = None
+
+# Проверка наличия результатов сохранения игры
+path = os.getcwd()
+# Если файл с сохраненными результатами есть,
+# считываем данные из файла, удаляем файл сохранения
+# и продолжаем игру с сохраненного места
+if "data.txt" in os.listdir():
+    with open("data.txt") as file:
+        data = json.load(file)
+        # print(data)  # Технический принт
+        mas = data['mas']
+        score = data['score']
+        USERNAME = data['user']
+    full_path = os.path.join(path, "data.txt")
+    os.remove(full_path)
+# Если файла с настройками нет,
+# инициализируем новую игру
+else:
+    init_const()
 
 # print("Список пустых клеток:", get_empty_list(mas))
 # pretty_print(mas)
